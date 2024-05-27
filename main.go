@@ -17,11 +17,18 @@ const (
 	AUDIO_WRONG             = "wrong.wav"
 	AUDIO_START             = "start.wav"
 	AUDIO_END               = "end.wav"
+	AUDIO_FAST              = "fast.wav"
+	AUDIO_NORMAL            = "normal.wav"
+	AUDIO_SLOW              = "slow.wav"
 
-	CMD_PLAY_CORRECT      = "play_correct\n"
-	CMD_PLAY_WRONG        = "play_wrong\n"
-	CMD_PLAY_START        = "play_start\n"
-	CMD_PLAY_END          = "play_end\n"
+	CMD_PLAY_CORRECT = "play_correct"
+	CMD_PLAY_WRONG   = "play_wrong"
+	CMD_PLAY_START   = "play_start"
+	CMD_PLAY_END     = "play_end"
+	CMD_PLAY_FAST    = "play_fast"
+	CMD_PLAY_NORMAL  = "play_normal"
+	CMD_PLAY_SLOW    = "play_slow"
+
 	CMD_PLAY_SOUND_PREFIX = "play_sound_"
 )
 
@@ -38,6 +45,9 @@ var (
 		CMD_PLAY_WRONG:   path.Join(AUDIO_GENERAL_DIRECTORY, AUDIO_WRONG),
 		CMD_PLAY_START:   path.Join(AUDIO_GENERAL_DIRECTORY, AUDIO_START),
 		CMD_PLAY_END:     path.Join(AUDIO_GENERAL_DIRECTORY, AUDIO_END),
+		CMD_PLAY_FAST:    path.Join(AUDIO_GENERAL_DIRECTORY, AUDIO_FAST),
+		CMD_PLAY_NORMAL:  path.Join(AUDIO_GENERAL_DIRECTORY, AUDIO_NORMAL),
+		CMD_PLAY_SLOW:    path.Join(AUDIO_GENERAL_DIRECTORY, AUDIO_SLOW),
 	}
 )
 
