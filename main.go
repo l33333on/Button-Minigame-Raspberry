@@ -29,7 +29,8 @@ const (
 	CMD_PLAY_NORMAL  = "play_normal"
 	CMD_PLAY_SLOW    = "play_slow"
 
-	CMD_PLAY_SOUND_PREFIX = "play_sound_"
+	CMD_PLAY_SOUND_PREFIX      = "play_sound_"
+	CMD_PLAY_GAME_SOUND_PREFIX = "play_game_"
 )
 
 var (
@@ -80,17 +81,26 @@ func main() {
 				break
 			}
 			var file string
-			fmt.Println(string(buf[:n]))
-			if strings.HasPrefix(string(buf[:n]), CMD_PLAY_SOUND_PREFIX) { // sounds 1-8
-				file = path.Join(AUDIO_SOUNDS_DIRECTORY, strings.TrimPrefix(string(buf[:n]), CMD_PLAY_SOUND_PREFIX)+".wav")
+			var command = strings.TrimSpace(string(buf[:n]))
+			fmt.Printf("command: %s\n", command)
+			if strings.HasPrefix(command, CMD_PLAY_SOUND_PREFIX) { // sounds 1-8
+				file = path.Join(AUDIO_SOUNDS_DIRECTORY, strings.Trim(command, CMD_PLAY_SOUND_PREFIX)+".wav")
+				fmt.Printf("file: %s\n", file)
+			} else if strings.HasPrefix(command, CMD_PLAY_GAME_SOUND_PREFIX) { // game sounds 1-4
+				file = path.Join(AUDIO_GENERAL_DIRECTORY, strings.Trim(command, CMD_PLAY_GAME_SOUND_PREFIX)+".wav")
+				fmt.Printf("file: %s\n", file)
 			} else { // general sounds
-				file = AUDIO_GENERAL_MAPPING[string(buf[:n])]
+				file = AUDIO_GENERAL_MAPPING[command]
+				fmt.Printf("file: %s\n", file)
 				if file == "" { // unknown command received
 					break
 				}
 			}
-			fmt.Println(file)
-			playwav.FromFile(file) // actually play the sound, don't minding potential errors caused by a non existing file, etc.
+			_, err = playwav.FromFile(file) // actually play the sound, don't minding potential errors caused by a non existing file, etc.
+			if err != nil {
+				fmt.Println(err.Error())
+				break
+			}
 		}
 	}
 }
